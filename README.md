@@ -28,9 +28,9 @@ Here are some useful websites for visulization, and data
 
 | TIMEPOINT | Excpected Progress | Actual Progress |    |
 | --------- | ---- | ----------------- | -- |
-| **~ 06 Oct.(Fri.)**| Proposal + Data Preprocess| |  **Proposal DEADLINE** |
+| ~ **06 Oct.(Fri.)**| Proposal + Data Preprocess| |  **Proposal DEADLINE** |
 | ~ 13 Oct.(Fri.)| Data Visualization + Data  Prelimilary Validation| Row 2, Column 3|
-| **~ 20 Oct.(Fri.)**|Data Prelimilary Visualization + Data Validation | Row 2, Column 3| **Midterm DEADLINE** |
+| ~ **20 Oct.(Fri.)**|Data Prelimilary Visualization + Data Validation | Row 2, Column 3| **Midterm DEADLINE** |
 | ~ 27 Oct.(Fri.)| Result Visualization + Data Validation| Row 2, Column 3|
 | ~ 3 Nov.(Fri.)| Result Visualization + Data Validation | Row 2, Column 3|
 | ~ **10 Nov.(Fri.)**| NO | Row 2, Column 3| **LAST DEADLINE**|
