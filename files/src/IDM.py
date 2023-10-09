@@ -2,9 +2,10 @@ import numpy as np
 
 class Car:
     
-    def __init__(self, size: float, vs: np.array = [], xs: np.array = []) -> None:
+    def __init__(self, size: float, xs: np.array = [], vs: np.array = [], a_s: np.array = []) -> None:
         self.vs = vs
         self.xs = xs
+        self.a_s = a_s
         self.size = size
         
 
@@ -21,7 +22,7 @@ class IntelDriverModel:
 
     def get_desired_s(self, v_this, delta_v_i):
         
-        desired_s = self.s0 + v_this * self.T + v_this * v_this * delta_v_i / (2 * np.sqrt(self.a * self.b))
+        desired_s = self.s0 + v_this * self.T + v_this * delta_v_i / (2 * np.sqrt(self.a * self.b))
         return max(0, desired_s)
     def get_new_a(self, v_this, v_front, s_this):
         
@@ -33,9 +34,8 @@ class IntelDriverModel:
     def update(self, front_car: Car, this_car: Car, time_step: float):
         
         assert this_car is not None
-        assert len(this_car) == len(front_car)
         
-        N = len(front_car)
+        N = len(front_car.xs)
         
         for i in range(1, N):
             this_v_now = this_car.vs[i - 1]
@@ -46,8 +46,8 @@ class IntelDriverModel:
             gap_now = front_s_now - this_s_now - front_car.size  # the distance is head's distance
             
             # update
-            this_car.vs[i] = this_car.vx[i - 1] + time_step * self.get_new_a(this_v_now, front_v_now, gap_now)
-            this_car.xs[i] = this_car.xs[i - 1] + this_car.vs[i - 1] * time_step + 1 / 2 * self.get_new_a(this_v_now, front_v_now, gap_now) * time_step.pow(2)
             
-        
-    
+            this_car.vs.append(this_car.vs[i - 1] + time_step * self.get_new_a(this_v_now, front_v_now, gap_now))
+            this_car.xs.append(this_car.xs[i - 1] + this_car.vs[i - 1] * time_step + 1 / 2 * self.get_new_a(this_v_now, front_v_now, gap_now) * pow(time_step, 2))
+            this_car.a_s.append(self.get_new_a(this_v_now, front_v_now, gap_now))
+            
