@@ -22,12 +22,11 @@ class IntelDriverModel:
 
     def get_desired_s(self, v_this, delta_v_i):
         
-        desired_s = self.s0 + v_this * self.T + v_this * delta_v_i / (2 * np.sqrt(self.a * self.b))
-        return max(0, desired_s)
+        desired_s = v_this * self.T + v_this * delta_v_i / (2 * np.sqrt(self.a * self.b))
+        return self.s0 + max(0, desired_s)
     def get_new_a(self, v_this, v_front, s_this):
         
         delta_v_i = v_this - v_front
-        
         return self.a * (1 - np.power(v_this / self.v0, self.sigma) 
                             - np.power((self.get_desired_s(v_this, delta_v_i) / s_this), 2))
     
@@ -44,10 +43,12 @@ class IntelDriverModel:
             front_s_now = front_car.xs[i - 1]
             
             gap_now = front_s_now - this_s_now - front_car.size  # the distance is head's distance
-            
+            this_v_a = self.get_new_a(this_v_now, front_v_now, gap_now)
             # update
-            
-            this_car.vs.append(this_car.vs[i - 1] + time_step * self.get_new_a(this_v_now, front_v_now, gap_now))
-            this_car.xs.append(this_car.xs[i - 1] + this_car.vs[i - 1] * time_step + 1 / 2 * self.get_new_a(this_v_now, front_v_now, gap_now) * pow(time_step, 2))
-            this_car.a_s.append(self.get_new_a(this_v_now, front_v_now, gap_now))
+            if this_v_now + this_v_a * time_step < 0:
+                this_car.vs.append(0)
+            else:
+                this_car.vs.append(this_car.vs[i - 1] + time_step * this_v_a)
+            this_car.xs.append(this_car.xs[i - 1] + this_car.vs[i - 1] * time_step + 1 / 2 * this_v_a * pow(time_step, 2))
+            this_car.a_s.append(this_v_a)
             
