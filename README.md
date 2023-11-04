@@ -6,6 +6,10 @@
 In docs file, there are three documents referenced in this report in this folder, which are as follows:
 1.  “Is more always better? the impact of vehicular trajectory completeness on car-following model calibration and validation” 
 2. The Intelligent-Driver Model and its Variants
-3.  Large Car-following Data Based on Lyft level-5 Open Dataset: Following Autonomous Vehicles vs. Human-driven Vehicles
+3. Large Car-following Data Based on Lyft level-5 Open Dataset: Following Autonomous Vehicles vs. Human-driven Vehicles
 
-In images file, 
+In images file, the two pictures are as follows: 
+1. The process of completing the report
+2. Classification of vehicle driving behavior
+
+In src file, the final report is posted.
